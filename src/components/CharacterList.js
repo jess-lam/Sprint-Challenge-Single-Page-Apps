@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
 import CharacterCard from "./CharacterCard";
 import SearchForm from "./SearchForm";
+import { Container, Row } from 'reactstrap'
 
 export default function CharacterList(props) {
   // TODO: Add useState to track data from useEffect
     const [characters, setCharacters] = useState([])
-
-    const setSearchResults = info => {
-      const results = characters.filter(character => {
-        return character.toLowerCase().includes(info.toLowerCase());
-      });
-  
-      setSearchResults(results);
-    };
 
     useEffect(() => {
         axios
@@ -22,6 +14,7 @@ export default function CharacterList(props) {
         .then(response => {
           console.log(response.data.results);
           setCharacters(response.data.results);
+          console.log(characters);
         })
         .catch(error => {
           console.error('Server Error', error);
@@ -32,14 +25,17 @@ export default function CharacterList(props) {
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
 
   return (
-    <section className="character-list">
-      <SearchForm characters={characters}
-      searchResults={setSearchResults}/>
-      {characters.map((card, index) => {
-        return (
-          <CharacterCard key={card.id} image={card.image} species={card.species} gender={card.gender} status={card.status}/>
-        )
-      })}
+    <Container>
+      <Row>
+        <section className="character-list">
+        <SearchForm characters={characters} searchResults={props.setSearchResults}/>
+        {characters.map((card, index) => {
+          return (
+            <CharacterCard key={card.id} image={card.image} species={card.species} gender={card.gender} status={card.status}/>
+          )
+        })}
     </section>
+      </Row>
+    </Container>
   );
 }
