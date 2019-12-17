@@ -7,7 +7,13 @@ export default function SearchForm(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(props.characters);
 
-  useEffect(() => {}, [searchTerm]);
+  useEffect(() => {
+    const results = props.characters.filter(character => {
+      return character.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    
+    setSearchResults(results);
+  }, [searchTerm]);
 
   const handleChange = event => {
     setSearchTerm(event.target.value);
@@ -15,6 +21,17 @@ export default function SearchForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    /*const results = props.characters.filter(character => {
+      return character.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    
+    setSearchResults(results);*/
+    //get searchTerm
+    //get child to update parent state
+    //in addition to getting setcharacters, get characters
+    //get setCharacters from characterlist and filter through that info
+    //call your function --> give it the filtered list 
   }
   
 

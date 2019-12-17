@@ -27,7 +27,7 @@ export default function CharacterList(props) {
           console.error('Server Error', error);
         });
     }, []);
-  
+
     // TODO: Add API Request here - must run in `useEffect`
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
 
